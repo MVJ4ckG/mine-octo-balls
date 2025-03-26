@@ -10,7 +10,7 @@ class Database:
     #create tables
     self.c.execute("CREATE TABLE IF NOT EXISTS agent(agentId integer PRIMARY KEY, firstname text, surname text, email text, password text)")
     self.c.execute("CREATE TABLE IF NOT EXISTS property(propertyId integer PRIMARY KEY, managedby text, area text, bedroomno integer, price real, status text)")
-    self.c.execute("CREATE TABLE IF NOT EXISTS client(clientId integer PRIMARY KEY, name text, phonenumber integer, prefferedarea text, maxprice real, minrooms integer)")
+    self.c.execute("CREATE TABLE IF NOT EXISTS client(clientId integer PRIMARY KEY, name text, phonenum integer, prefarea text, maxprice real, minrooms integer)")
     self.c.execute("CREATE TABLE IF NOT EXISTS viewing(viewingId integer PRIMARY KEY, clientId integer, propertyId integer)")
 
     self.conn.commit()
@@ -56,10 +56,12 @@ class Database:
       print(traceback.format_exc())
 
 
-  def addPatientToDB(self, firstname, surname, email, password):
-    #add patient to database
+  def addagentToDB(self, firstname, surname, email, password):
+    #add agent to database
     self.c.execute("INSERT INTO agent (firstname, surname, email, password) VALUES (?, ?, ?, ?)", (firstname, surname, email, password))
 
+  def addclientToDB(self, name, phonenum, prefarea, maxprice, minrooms):
+    self.c.execute("INSERT INTO client (name, phonenum, prefarea, maxprice, minrooms) VALUES (?, ?, ?, ?, ?)", (name, phonenum, prefarea, maxprice, minrooms))
 
   def getagentFromDB(self, wordList, debug=False):
     self.c.execute("SELECT * FROM agent")
@@ -90,12 +92,7 @@ class Database:
     return agent
 
 
-  def addPlayerToDB(self, username, password, name):
-    try:
-      self.execute("INSERT INTO property (username, password, name) VALUES (?, ?, ?)", (username, password, name))
-      return True
-    except:
-      return False
+
 
 
   def showCurrentUsernames(self):
@@ -105,9 +102,3 @@ class Database:
     for item in data:
       print(item[0], " (score: " + str(item[2]) + ")" + item[3])
     print("---------------")
-
-  def markWordAsGuessed(self, playerId, wordId):
-    self.execute("INSERT INTO viewing (playerId, wordId, correct) VALUES (?, ?, ?) ",  (playerId, wordId, True))
-
-  def markWordAsUnguessed(self, playerId, wordId):
-    self.execute("INSERT INTO viewing (playerId, wordId, correct) VALUES (?, ?, ?) ",  (playerId, wordId, False))

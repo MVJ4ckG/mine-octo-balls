@@ -1,34 +1,24 @@
 class Client():
-  def __init__(self, firstName="", lastName="", dob="", gender="", address="", phone="", email=""):
-    self.firstName = firstName
-    self.lastName = lastName
-    self.dob = dob
-    self.gender = gender
-    self.address = address
-    self.phone = phone
-    self.email = email
-    self.appointments = []
-    self.messages = []
+  def __init__(self, name="", phonenum="", prefarea="", maxprice="", minrooms=""):
+    self.name = name
+    self.phonenum = phonenum
+    self.prefarea = prefarea
+    self.maxprice = maxprice
+    self.minrooms = minrooms
     self.clientId = 0
 
-  def getFirstName(self):
-    return self.firstName
+  def getname(self):
+    return self.name
     
-  def getLastName(self):
-    return self.lastName
+  def getphonenum(self):
+    return self.phonenum
     
-  def getDob(self):
-    return self.dob
+  def getprefarea(self):
+    return self.prefarea
     
-  def getGender(self):
-    return self.gender
+  def getmaxprice(self):
+    return self.maxprice
     
-  def getAddress(self):
-    return self.address
-    
-  def getPhone(self):
-    return self.phone
-    
-  def getEmail(self):
-    return self.email
+  def getminrooms(self):
+    return self.minrooms
   

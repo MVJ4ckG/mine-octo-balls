@@ -28,9 +28,9 @@ class Menu:
     self.menuOptions.clear()
     self.menuOptions.append("1. properties")
     self.menuOptions.append("2. clients")
-    self.menuOptions.append("3. Messages")
-    self.menuOptions.append("4. Reports")
-    self.menuOptions.append("5. Staff availabilty")
+    self.menuOptions.append("3. Agents")
+    self.menuOptions.append("4. viewings")
+    self.menuOptions.append("5. log in/out")
     self.displayPage()
     choice = getNumber(self.breadcrumb, self.minMenuVal, self.maxMenuVal)
     if choice == 1:
@@ -46,26 +46,102 @@ class Menu:
     self.minMenuVal = 1
     self.maxMenuVal = 4
     self.menuOptions.clear()    
-    self.menuOptions.append("1. New properties")
-    self.menuOptions.append("2. Display properties (day view)")
-    self.menuOptions.append("3. Display properties (week view)")
-    self.menuOptions.append("4. Back")  
+    self.menuOptions.append("1. New property")
+    self.menuOptions.append("2. Edit property ")
+    slef.menuOptions.append("3. delete property")
+    self.menuOptions.append("4. Display properties")
+    self.menuOptions.append("5. Back")  
     self.displayPage()
     choice = getNumber(self.breadcrumb, self.minMenuVal, self.maxMenuVal)
     if choice == 1:
-      self.newproperties()
+      self.newproperty()
     elif choice == 2:
-      self.displayDayViewproperties()
+      self.editproperty()
     elif choice == 3:
-      self.displayWeekViewproperties()
+      self.deleteproperty()
     elif choice == 4:
+      self.displayproperties()
+    elif choice == 5:
       self.displayDashboard()
 
-  def newproperties(self):
-    self.pageName = "New properties"
-    self.breadcrumb = "Dashboard / New properties>"
+  def newproperty(self, tmpNewproperty):
+            
+    self.firstName = tmpNewproperty.getFirstName()
+    self.lastName = tmpNewproperty.getLastName()
+    self.dob = tmpNewproperty.getDob()
+    self.address = tmpNewproperty.getAddress()
+    self.phone = tmpNewproperty.getPhone()
+    self.email = tmpNewproperty.getEmail()
+    self.gender = tmpNewproperty.getGender()
+    
+    self.pageName = "New property"
+    self.breadcrumb = "Dashboard / New property>"
     self.minMenuVal = 1
-    self.maxMenuVal = 2
+    self.maxMenuVal = 9
+
+    self.menuOptions.clear()
+    self.menuOptions.append("1. First name: " + self.firstName)
+    self.menuOptions.append("2. Last name: " + self.lastName)
+    self.menuOptions.append("3. Date of birth: " + self.dob)
+    self.menuOptions.append("4. Gender: " + self.gender)
+    self.menuOptions.append("5. Address: " + self.address)
+    self.menuOptions.append("6. Phone number: " + self.phone)
+    self.menuOptions.append("7. Email: " + self.email)
+    self.menuOptions.append("8. Submit new client to database")
+    self.menuOptions.append("9. Back")
+    self.displayPage()
+    choice = getNumber(self.breadcrumb, self.minMenuVal, self.maxMenuVal)
+    if choice == 1:
+      choice = getString("First name: ", minLen=1, maxLen=20)
+      self.firstName = choice
+      tmpNewclient.firstName = choice
+      self.newclient(tmpNewclient)
+      
+    elif choice == 2:
+      choice = getString("Last name: ", minLen=1, maxLen=20)
+      self.lastName = choice
+      tmpNewclient.lastName = choice
+      self.newclient(tmpNewclient)
+  
+    elif choice == 3:
+      choice = getDate("Date of birth (dd/mm/yyyy): ", minLen=1, maxLen=10)
+      self.dob = choice
+      tmpNewclient.dob= choice
+      self.newclient(tmpNewclient)
+
+    elif choice == 4:
+      choice = getGender("Gender: (m/f)")
+      self.gender = choice
+      tmpNewclient.gender= choice
+      self.newclient(tmpNewclient)
+
+    elif choice == 5:
+      choice = getString("Address", 1, 50)
+      self.address = choice
+      tmpNewclient.address = choice
+      self.newclient(tmpNewclient)
+
+    elif choice == 6:
+      choice = getPhoneNumber("Phone number:")
+      self.phone = choice
+      tmpNewclient.phone = choice
+      self.newclient(tmpNewclient)
+
+    elif choice == 7:
+      choice = getEmail("eMail:")
+      self.email = choice
+      tmpNewclient.email= choice
+      self.newclient(tmpNewclient)
+
+    elif choice == 8:
+      if getYesNo("Are you sure you want to submit this client?") == "y":
+        db.addclientToDB(tmpNewclient)
+        self.displayDashboard()
+      else:
+        self.newclient(tmpNewclient)
+      
+    elif choice == 9:
+      self.displayDashboard()
     
   #======================================
 
