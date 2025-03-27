@@ -62,7 +62,9 @@ class Database:
 
   def addclientToDB(self, name, phonenum, prefarea, maxprice, minrooms):
     self.c.execute("INSERT INTO client (name, phonenum, prefarea, maxprice, minrooms) VALUES (?, ?, ?, ?, ?)", (name, phonenum, prefarea, maxprice, minrooms))
-
+  
+  def addpropertytoDB(self, managedby, area, bedroomno, price, status):
+                      )
   def getagentFromDB(self, wordList, debug=False):
     self.c.execute("SELECT * FROM agent")
     data = self.c.fetchall()    

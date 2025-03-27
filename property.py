@@ -1,5 +1,5 @@
 class Property():
-    def __init__(self, managedby="", area="", bedroomno="", price="", status=""):
+    def __init__(self, managedby, area, bedroomno, price, status):
         self.managedby = managedby
         self.area = area
         self.bedroomno = bedroomno

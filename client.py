@@ -1,4 +1,4 @@
-class Client():
+class client():
   def __init__(self, name="", phonenum="", prefarea="", maxprice="", minrooms=""):
     self.name = name
     self.phonenum = phonenum

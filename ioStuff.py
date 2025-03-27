@@ -24,6 +24,22 @@ def getNumber(prompt, minVal, maxVal):
     except:
       print("Invalid choice")
 
+def getMoney(prompt, minLen, maxLen):
+  while True:
+    try:
+      val = input(prompt)
+      prompt = float(prompt)
+      if val == "":
+        raise Exception
+      if len(val) < minLen:
+        print("Too short")
+        raise Exception
+      if len(val) > maxLen:
+        print("Too long") 
+            return val
+    except:
+      print("Invalid entry")
+
 def getString(prompt, minLen=0, maxLen=0):
   while True:
     try:
