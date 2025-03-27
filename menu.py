@@ -1,8 +1,9 @@
 from os import *
 from ioStuff import *
+from dbStuff import *
 from client import * 
 from property import *
-NULL = None
+NULL = " "
 class Menu:
   def __init__(self):
     self.breadcrumb = ""
@@ -23,7 +24,7 @@ class Menu:
 
   def displayDashboard(self):
     self.pageName = "Dashboard"
-    self.breadcrumb = ">"
+    self.breadcrumb = "> "
     self.minMenuVal = 1
     self.maxMenuVal = 5
     self.menuOptions.clear()
@@ -44,7 +45,7 @@ class Menu:
 
   def properties(self):
     self.pageName = "Display properties"
-    self.breadcrumb = "Dashboard>"
+    self.breadcrumb = "Dashboard> "
     self.minMenuVal = 1
     self.maxMenuVal = 4
     self.menuOptions.clear()    
@@ -76,16 +77,16 @@ class Menu:
     self.status = tmpnewproperty.getstatus()
     
     self.pageName = "New property"
-    self.breadcrumb = "Dashboard / New property>"
+    self.breadcrumb = "Dashboard / New property> "
     self.minMenuVal = 1
     self.maxMenuVal = 7
 
     self.menuOptions.clear()
-    self.menuOptions.append("1. Managed By: ")
-    self.menuOptions.append("2. Area: ")
-    self.menuOptions.append("3. Number of Bedrooms: ")
-    self.menuOptions.append("4. price: ")
-    self.menuOptions.append("5. status: ")
+    self.menuOptions.append("1. Managed By: "+self.managedby)
+    self.menuOptions.append("2. Area: "+self.area)
+    self.menuOptions.append("3. Number of Bedrooms: "+str(self.bedroomno))
+    self.menuOptions.append("4. price: "+ str(self.price))
+    self.menuOptions.append("5. status: "+self.status)
     self.menuOptions.append("6. Submit new client to database")
     self.menuOptions.append("7. Back")
     self.displayPage()
@@ -115,14 +116,14 @@ class Menu:
       self.newproperty(tmpnewproperty)       
 
     elif choice == 5:
-      choice = getString("status:", 1, 10)
+      choice = getString("status: ", 1, 10)
       self.status = choice
       tmpnewproperty.status = choice
       self.newproperty(tmpnewproperty) 
 
     elif choice == 6:
-      if getYesNo("Are you sure you want to submit this client?") == "y":
-        db.addpToDB(tmpnewproperty)
+      if getYesNo("Are you sure you want to submit this client? ") == "y":
+        Database.addpropertytoDB(tmpnewproperty)
         self.displayDashboard()
       else:
         self.newproperty(tmpnewproperty) 
